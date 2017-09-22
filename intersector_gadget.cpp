@@ -106,15 +106,8 @@ aabb::aabb(const vec3 & max_v, const vec3 & min_v) {
 }
 
 aabb::aabb(const triangle & tri) {
-  fp max_x = std::max(tri.v0.x(), std::max(tri.v1.x(), tri.v2.x()));
-  fp max_y = std::max(tri.v0.y(), std::max(tri.v1.y(), tri.v2.y()));
-  fp max_z = std::max(tri.v0.z(), std::max(tri.v1.z(), tri.v2.z()));
-  fp min_x = std::min(tri.v0.x(), std::min(tri.v1.x(), tri.v2.x()));
-  fp min_y = std::min(tri.v0.y(), std::min(tri.v1.y(), tri.v2.y()));
-  fp min_z = std::min(tri.v0.z(), std::min(tri.v1.z(), tri.v2.z()));
-
-  max_v = {max_x, max_y, max_z};
-  min_v = {min_x, min_y, min_z};
+  max_v = max(tri.v0, max(tri.v1, tri.v2));
+  min_v = min(tri.v0, min(tri.v1, tri.v2));
 }
 
   aabb::aabb(const std::vector<triangle> & tris) {
@@ -132,15 +125,8 @@ aabb::aabb(const triangle & tri) {
 }
 
 void aabb::merge_with(const aabb & other) {
-  fp max_x = std::max(other.max_v.x(), max_v.x());
-  fp max_y = std::max(other.max_v.y(), max_v.y());
-  fp max_z = std::max(other.max_v.z(), max_v.z());
-  fp min_x = std::min(other.min_v.x(), min_v.x());
-  fp min_y = std::min(other.min_v.y(), min_v.y());
-  fp min_z = std::min(other.min_v.z(), min_v.z());
-
-  max_v = {max_x, max_y, max_z};
-  min_v = {min_x, min_y, min_z};
+  max_v = max(max_v, other.max_v);
+  min_v = min(min_v, other.min_v);
 }
 
 
