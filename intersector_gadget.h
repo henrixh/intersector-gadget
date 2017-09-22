@@ -23,10 +23,6 @@
 #include <vector>
 
 namespace gadget {
-  /////////////////////////////////////////////
-  // Redefine some typenames for readability //
-  /////////////////////////////////////////////
-
   typedef vec3 position_t;
   typedef vec3 direction_t;
   typedef vec3 normal_t;

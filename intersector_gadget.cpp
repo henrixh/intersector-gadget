@@ -31,10 +31,6 @@ namespace gadget {
     dir = d;
   }
 
-/////////////////////////////////
-// Triangles are nice and cosy //
-/////////////////////////////////
-
   fp intersect_triangle(const triangle& tri, const ray& r) {
     // https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm
     vec3 e1 = tri.v1 - tri.v0;
@@ -77,8 +73,6 @@ namespace gadget {
     res.hit = true;
     res.hit_position = scale(r.dir, dist) + r.origin;
 
-    //calculate uvw
-    // Stolen from
     // http://gamedev.stackexchange.com/questions/23743/whats-the-most-efficient-way-to-find-barycentric-coordinates
     vec3 v0 = tri.v1 - tri.v0;
     vec3 v1 = tri.v2 - tri.v0;
@@ -105,10 +99,6 @@ namespace gadget {
   vec3 triangle::center_point() const {
     return scale(v0 + v1 + v2, 1.0/3.0);
   }
-
-  //////////////////////////////////////////
-  // AABBs also needs some implementation //
-  //////////////////////////////////////////
 
 aabb::aabb(const vec3 & max_v, const vec3 & min_v) {
   this->max_v = max_v;
@@ -259,7 +249,6 @@ intersection intersector::leaf_intersect(const ray & r, triangle tri) const {
 intersection intersector::intersect(const ray & r) const {
   std::stack<uint32_t> frontier;
   vec3 inv_ray_dir = vec3(1,1,1) / r.dir;
-  // Push root node
   frontier.push(0);
 
   fp closest_distance = infinity;
@@ -270,7 +259,7 @@ intersection intersector::intersect(const ray & r) const {
     uint32_t node_index = frontier.top(); frontier.pop();
     bvh_node n = nodes[node_index];
 
-    // Base case, 0 in any pointer marks a leaf
+    // 0 in any pointer marks a leaf
     if (n.left == 0 || n.right == 0){
       if (n.bound.intersect(r.origin, inv_ray_dir) < closest_distance) {
         for (size_t i { 0 }; i < tris[n.tri_index].size(); ++i) {
