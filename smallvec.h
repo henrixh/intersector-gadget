@@ -23,7 +23,7 @@ private:
 public:
   inline vec3();
   inline vec3(const float v0, const float v1, const float v2);
-  inline vec3(float * const vs);
+  inline vec3(const float * vs);
   float inline length() const;
   float inline x() const;
   float inline y() const;
@@ -73,7 +73,7 @@ inline vec3::vec3(float v0, float v1, float v2) {
   d[3] = 0.0;
 }
 
-inline vec3::vec3(float * const vs) {
+inline vec3::vec3(const float * vs) {
   d[0] = vs[0];
   d[1] = vs[1];
   d[2] = vs[2];
@@ -97,10 +97,11 @@ float inline vec3::length() const {
 }
 
 void inline vec3::normalize() {
-  d[0] /= length();
-  d[1] /= length();
-  d[2] /= length();
-  d[3] /= length();
+  float scale = 1.0f/length();
+  d[0] *= scale;
+  d[1] *= scale;
+  d[2] *= scale;
+  d[3] *= scale;
 }
 
 void inline vec3::scale(const float s) {
@@ -217,7 +218,7 @@ inline vec3::vec3(const float v0, const float v1, const float v2) {
   d = _mm_set_ps(v0, v1, v2, 0.0f);
 }
 
-inline vec3::vec3(float * const vs) {
+inline vec3::vec3(const float * vs) {
   d = _mm_set_ps(vs[0], vs[1], vs[2], 0.0f);
 }
 
