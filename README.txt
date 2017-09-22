@@ -1,23 +1,22 @@
-This is a small, simple and somewhat decent ray/mesh intersection library. If
-something more production worthy is needed, look somewhere else.
+This is a small, simple and somewhat decent ray/mesh intersection library for
+C++14. If something more production worthy is needed, look somewhere else.
 
 The goal is not to be correct, not to be fast. 
 
 The goal is to be easy to use when writing toy raytracers, pathtracers or other
-things where some ray/mesh intersection is needed.
+things where some ray/mesh intersection is needed. Just throw your triangles and
+rays at it.
 
 
 
 Usage:
 
-Move all .cpp and .h files to your project and add to your build system. If you
-are building on x86-64, you should add '-march=native' to your flags and use the
-intrinsic version of 'smallvec'. If this isn't working, remove the line
-> #define SMALLVEC_USE_INTRINSIC'
-from 'smallvec.h'.
+Move all .cpp and .h files to your project and add to your build system.
 
-Compiles with '$ g++ -O3 -pedantic -Wall -Wextra -Werror -march=native -std=gnu++14'
+If you are building on x86-64, you should add '-march=native' to your compiler
+flags for some extra speed.
 
+Compiles with '$ g++ -pedantic -Wall -Wextra -Werror -std=gnu++14'
 
 
 
@@ -68,7 +67,7 @@ namespace gadget {
 Smallvec:
 
 'smallvec.h' is also available at https://github.com/henrixh/smallvec as a
-separate project, when only some 3D vectors are needed
+separate project
 
 
 
